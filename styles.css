@@ -22,9 +22,9 @@ h1 {
 #calcContainer {
     display: flex;
     flex-direction: column;
-    background: white;
+    background: purple;
     margin-top: 20px;
-    width: 50%;
+    width: 45%;
     min-height: 75%;
     border: 5px solid black;
 }
@@ -74,6 +74,7 @@ h1 {
 }
 
 .button {
+    background: white;
     display: flex;
     box-sizing: border-box;
     justify-content: center;
@@ -81,18 +82,13 @@ h1 {
     border: solid 2px black;
 }
 
-.numberButton, .decimalButton, #equals {
+.numberButton, #equals, #AC {
     width: 33%;
     flex-grow: 1;
     font-size: 48px;
 }
 
-.operatorButton {
-    flex: 1;
-}
-
-
-#AC {
+.operatorButton, #decimalButton {
     flex: 1;
 }
 
@@ -100,18 +96,10 @@ h1 {
     background-color: red;
 }
 
-#AC:hover {
-    background-color: darkred;
+#AC:hover, #equals:hover, .button:hover {
+    opacity: 75%;
 }
 
 #equals {
     background-color: green;
-}
-
-#equals:hover {
-    background-color: darkgreen;
-}
-
-.button:hover {
-    background-color: darkgrey;
 }
