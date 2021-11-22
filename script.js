@@ -1,50 +1,117 @@
+// initialize primary display as a variable that begins as blank
+
 let displayValue = "";
 display.innerText = displayValue;
+
+// query selector for the number and operator buttons.
+
 const numberButton = document.querySelectorAll('.numberButton');
 const operatorButton = document.querySelectorAll('.operatorButton');
+
 // opeator variable to tell calculator which operator is performing;
+
 let operator;
 
-/* addition, subtraction, multiplication and division functions */
+// check if number is a decimal
+
+let isDecimalX = false;
+let isDecimalY = false;
+
+/* FUNCTIONS
+addition, subtraction, multiplication and division functions */
 
 function add(x, y) {
-    return Math.round(x + y);
+    return (x + y);
 }
 
 function subtract(x, y) {
-    return Math.round(x - y);
+    return (x - y);
 }
 
 function multiply(x, y) {
-    return Math.round(x * y);
+    return (x * y);
 }
 
 function divide(x, y) {
-    return Math.round(x / y);
+    return (x / y);
 }
 
 // event listener that populates displayValue with user inputted numbers
 
 numberButton.forEach((div) => {
     div.addEventListener('click', () => {
+
         //if there's no operator, then we set the x variable first
-        if(!operator) {
-            //if(displayValue.length < 8) {
-                displayValue += event.target.innerText;
-                console.log(displayValue);
-                display.innerText = displayValue;
-                x = parseInt(displayValue);
-            //}
-        } else {
-        //if there is an operator, set the y variable
-            //if(displayValue.length < 8) {
-                displayValue += event.target.innerText;
-                console.log(displayValue);
-                display.innerText = displayValue;
-                y = parseInt(displayValue);
-            //}
-        }
+
+            if(!operator) {
+
+                // limit user input to 12 digits
+                if(displayValue.length < 12) {
+
+                    displayValue += event.target.innerText;
+                    console.log(displayValue);
+                    display.innerText = displayValue;
+                    x = parseFloat(displayValue);
+                }
+
+            } else {
+
+            //if there is an operator, set the y variable
+
+                // limit user input to 12 digits
+                if(displayValue.length < 12) {
+
+                    displayValue += event.target.innerText;
+                    console.log(displayValue);
+                    display.innerText = displayValue;
+                    y = parseFloat(displayValue);
+                }
+            }
     });
+});
+
+// listen for a decimal point and limit its usage if number isDecimal
+
+decimalButton.addEventListener('click', () => {
+
+        //if there is no operator and no decimal, add a decimal to x value and confirm isDecimal
+
+        if(!operator) {
+            if(isDecimalX === false) {
+
+                // limit user input to 12 digits
+                if(displayValue.length < 12) {
+
+                    displayValue += event.target.innerText;
+                    display.innerText = displayValue;
+                    x = parseFloat(displayValue);
+                    isDecimal = true;
+                }
+            } else {
+
+                // does nothing and returns if there is already a decimal
+                return;
+            }
+        } else {
+
+        //if there is an operator and no decimal add decimal to y variable and confirm isDecimal
+
+            if(isDecimalY === false) {
+
+                // limit user input to 12 digits
+                if(displayValue.length < 12) {
+
+                    displayValue += event.target.innerText;
+                    display.innerText = displayValue;
+                    y = parseFloat(displayValue);
+                }
+                
+            } else {
+
+                // does nothing and returns if there is already a decimal
+                return;
+            }
+        }
 });
 
 operatorButton.forEach((div) => {
@@ -65,6 +132,9 @@ AC.addEventListener('click', () => {
     //clear x and y values
     x = 0;
     y = 0;
+    //clear isDecimal
+    isDecimalX = false;
+    isDecimalY = false;
     //clear displayValue and update display
     displayValue = "";
     display.innerText = displayValue;
@@ -88,6 +158,11 @@ AC.addEventListener('click', () => {
         if(operator === "/" && y === 0) {
             displayValue = "WHAT";
             display.innerText = displayValue;
+            operator = "";
+            displayValue = "";
+            x = 0;
+            y = 0;
+            previousDisplay.innerText = "";
             return;
         }
 
@@ -129,4 +204,5 @@ AC.addEventListener('click', () => {
             operator = "";
             previousDisplay.innerText = operator;
         }
+        isDecimalY = false;
     });
