@@ -42,10 +42,10 @@ h1 {
 
 #display {
     background: black;
-    flex: 0.75;
+    flex: 0.60;
     color: lightgreen;
     font-family: monospace;
-    font-size: 72px;
+    font-size: 69px;
     padding-right: 20px;
     text-align: right;
     word-wrap: break-word;
@@ -90,6 +90,7 @@ h1 {
 .operatorButton {
     flex: 1;
 }
+
 
 #AC {
     flex: 1;

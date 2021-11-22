@@ -82,6 +82,12 @@ decimalButton.addEventListener('click', () => {
                 // limit user input to 12 digits
                 if(displayValue.length < 12) {
 
+                    // put a 0 in if it's missing
+                    if(displayValue === "") {
+                        displayValue = "0";
+                        display.innerText = displayValue;
+                    }
+
                     displayValue += event.target.innerText;
                     display.innerText = displayValue;
                     x = parseFloat(displayValue);
@@ -100,6 +106,12 @@ decimalButton.addEventListener('click', () => {
 
                 // limit user input to 12 digits
                 if(displayValue.length < 12) {
+
+                    //put a 0 in if it's missing
+                    if(displayValue === "") {
+                        displayValue = "0";
+                        display.innerText = displayValue;
+                    }
 
                     displayValue += event.target.innerText;
                     display.innerText = displayValue;
