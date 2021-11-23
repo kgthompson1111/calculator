@@ -1,6 +1,6 @@
 // initialize primary display as a variable that begins as blank
 
-let displayValue = "";
+let displayValue = "0";
 display.innerText = displayValue;
 
 // query selector for the number and operator buttons.
@@ -8,7 +8,7 @@ display.innerText = displayValue;
 const numberButton = document.querySelectorAll('.numberButton');
 const operatorButton = document.querySelectorAll('.operatorButton');
 
-// opeator variable to tell calculator which operator is performing;
+// operator variable to tell calculator which operator is performing;
 
 let operator;
 
@@ -16,6 +16,11 @@ let operator;
 
 let isDecimalX = false;
 let isDecimalY = false;
+
+//variables for scientific notation conversion
+let displayInteger = 0;
+let integerNotation = 0;
+let displayString = "";
 
 /* FUNCTIONS
 addition, subtraction, multiplication and division functions */
@@ -41,9 +46,15 @@ function divide(x, y) {
 numberButton.forEach((div) => {
     div.addEventListener('click', () => {
 
+        // check for a leading 0 and get rid of it
+        if(displayValue === "0") {
+            displayValue = "";
+            display.innerText = displayValue;
+        }
+
         //if there's no operator, then we set the x variable first
 
-            if(!operator) {
+            if(!operator || operator === "") {
 
                 // limit user input to 12 digits
                 if(displayValue.length < 12) {
@@ -91,7 +102,7 @@ decimalButton.addEventListener('click', () => {
                     displayValue += event.target.innerText;
                     display.innerText = displayValue;
                     x = parseFloat(displayValue);
-                    isDecimal = true;
+                    isDecimalX = true;
                 }
             } else {
 
@@ -116,6 +127,7 @@ decimalButton.addEventListener('click', () => {
                     displayValue += event.target.innerText;
                     display.innerText = displayValue;
                     y = parseFloat(displayValue);
+                    isDecimalY = true;
                 }
                 
             } else {
@@ -148,7 +160,7 @@ AC.addEventListener('click', () => {
     isDecimalX = false;
     isDecimalY = false;
     //clear displayValue and update display
-    displayValue = "";
+    displayValue = "0";
     display.innerText = displayValue;
     //clear previous display
     operator = "";
@@ -164,16 +176,14 @@ AC.addEventListener('click', () => {
         // does not work if proper variables aren't in place
         if(!operator || operator === "" || x === 0 || !x || y === 0 || !y) {
             console.log("no operator or x/y value");
+            return;
         }
 
         //throws an error if dividing by 0
         if(operator === "/" && y === 0) {
-            displayValue = "WHAT";
-            display.innerText = displayValue;
+            displayValue = "ERROR!";
             operator = "";
             displayValue = "";
-            x = 0;
-            y = 0;
             previousDisplay.innerText = "";
             return;
         }
@@ -182,7 +192,6 @@ AC.addEventListener('click', () => {
         if(operator === "+") {
             let sum = add(x, y);
             displayValue = sum;
-            display.innerText = displayValue;
             //clear out operator so it's not used again
             operator = "";
             previousDisplay.innerText = operator;
@@ -192,7 +201,6 @@ AC.addEventListener('click', () => {
         if(operator === "-") {
             let difference = subtract(x, y);
             displayValue = difference;
-            display.innerText = displayValue;
             //clear out operator so it's not used again
             operator = "";
             previousDisplay.innerText = operator;
@@ -202,7 +210,6 @@ AC.addEventListener('click', () => {
         if(operator === "*") {
             let product = multiply(x, y);
             displayValue = product;
-            display.innerText = displayValue;
             //clear out operator so it's not used again
             operator = "";
             previousDisplay.innerText = operator;
@@ -211,10 +218,26 @@ AC.addEventListener('click', () => {
         if(operator === "/") {
             let quotient = divide(x, y);
             displayValue = quotient;
-            display.innerText = displayValue;
             //clear out operator so it's not used again
             operator = "";
             previousDisplay.innerText = operator;
         }
+
+        
+        // if check to prevent text overflow - convert to scientific notation
+        displayString = displayValue.toString();
+        if(displayString.length > 12) {
+        displayInteger = parseInt(displayString);
+        integerNotation = displayInteger.toExponential(7);
+            displayValue = integerNotation;
+        }
+
+        display.innerText = displayValue;
+
+        //reset values after a press of the equals button
+        x = 0;
+        y = 0;
+        isDecimalX = false;
         isDecimalY = false;
+        displayValue = "";
     });

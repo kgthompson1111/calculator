@@ -24,7 +24,7 @@ h1 {
     flex-direction: column;
     background: purple;
     margin-top: 20px;
-    width: 45%;
+    width: 16em;;
     min-height: 75%;
     border: 5px solid black;
     box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.411);
@@ -42,14 +42,16 @@ h1 {
 }
 
 #display {
+    display: flex;
     background: black;
-    flex: 0.60;
+    flex: 0.80;
     color: lightgreen;
     font-family: monospace;
     font-size: 69px;
     padding-right: 20px;
-    text-align: right;
-    word-wrap: break-word;
+    justify-content: right;
+    align-items: center;
+    overflow: hidden;
 }
 
 #bigButtonHolder {
