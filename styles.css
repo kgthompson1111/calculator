@@ -91,7 +91,7 @@ h1 {
     font-size: 48px;
 }
 
-.operatorButton, #decimalButton {
+.operatorButton, #decimalButton, #plusMinus {
     flex: 1;
 }
 
