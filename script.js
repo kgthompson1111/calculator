@@ -160,12 +160,14 @@ decimalButton.addEventListener('click', () => {
         }
 });
 
+// listen for press on operator button and respond accordingly
+
 operatorButton.forEach((div) => {
     div.addEventListener('click', () => {
         //when you enter into an operation, remove decimal limitation from Y
         isDecimalY = false;
         isY = true;
-        
+
         //if x is 0, set operated to true if you hit an operator
         if(x === 0) {
             operated = true;
@@ -175,7 +177,24 @@ operatorButton.forEach((div) => {
         let previousOperator = operator;
 
         if(operated === true) {
-
+            
+            // check for divide by zero error first - reset and return if found.
+            
+            if(previousOperator === "/" && y === 0) {
+                displayValue = "ERR0R!";
+                display.innerText = displayValue;
+                operator = "";
+                displayValue = "";
+                x = 0;
+                isY = false;
+                y = 0;
+                isDecimalX = false;
+                isDecimalY = false;
+                displayValue = "";
+                operated = false;
+                previousDisplay.innerText = "";
+                return;
+            }
 
             if(previousOperator === "+") {
                 let sum = add(x, y);
@@ -232,6 +251,7 @@ operatorButton.forEach((div) => {
 });
 
 // AC button function - clear everything and update displays
+
 AC.addEventListener('click', () => {
     //clear x and y values
     x = 0;
@@ -249,6 +269,44 @@ AC.addEventListener('click', () => {
     previousDisplay.innerText = "";
 });
 
+//backspace key
+
+backspace.addEventListener('click', () => {
+    let displayLength;
+    let slice;
+    //if it's x, backspace x
+    if(y === 0 && previousDisplay.textContent === "") {
+        if(x === 0) {
+            return;
+        }
+
+    displayLength = displayValue.length;
+    slice = displayValue.slice(displayLength-1, displayLength);
+    displayValue = displayValue.slice(0, displayLength-1);
+    if(slice === ".") {
+        isDecimalX = false;
+    }
+    display.innerText = displayValue;
+    x = parseInt(displayValue);
+    }
+
+    //if it's y, backspace y
+    if(y != 0 && previousDisplay.textContent != "") {
+        if(y ===0) {
+            return;
+        }
+    displayLength = displayValue.length;
+    slice = displayValue.slice(displayLength-1, displayLength);
+    displayValue = displayValue.slice(0, displayLength-1);
+    if(slice === ".") {
+        isDecimalY = false;
+    }
+    display.innerText = displayValue;
+    y = parseInt(displayValue);
+    }
+
+});
+
 /*run an operator function when the equals button is pressed
     only works if there is an x value, y value, and an operator
     else it just returns */
@@ -263,7 +321,7 @@ AC.addEventListener('click', () => {
 
         //throws an error if dividing by 0
         if(operator === "/" && y === 0) {
-            displayValue = "ERROR!";
+            displayValue = "ERR0R!";
             operator = "";
             displayValue = "";
             return;

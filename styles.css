@@ -91,7 +91,7 @@ h1 {
     font-size: 48px;
 }
 
-.operatorButton, #decimalButton, #plusMinus {
+.operatorButton, #decimalButton, #plusMinus, #backspace {
     flex: 1;
 }
 
@@ -105,4 +105,12 @@ h1 {
 
 #equals {
     background-color: green;
+}
+
+#plusMinus {
+    background-color: lightgrey;
+}
+
+#backspace {
+    background-color: red;
 }
