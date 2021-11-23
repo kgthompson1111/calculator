@@ -162,7 +162,10 @@ decimalButton.addEventListener('click', () => {
 
 operatorButton.forEach((div) => {
     div.addEventListener('click', () => {
-
+        //when you enter into an operation, remove decimal limitation from Y
+        isDecimalY = false;
+        isY = true;
+        
         //if x is 0, set operated to true if you hit an operator
         if(x === 0) {
             operated = true;
@@ -173,9 +176,6 @@ operatorButton.forEach((div) => {
 
         if(operated === true) {
 
-        //when you enter into an operation, remove decimal limitation from Y
-        // and set isY to true;
-        isDecimalY = false;
 
             if(previousOperator === "+") {
                 let sum = add(x, y);
