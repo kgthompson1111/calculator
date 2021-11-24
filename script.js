@@ -50,16 +50,23 @@ function divide(x, y) {
     return (x / y);
 }
 
-// button const - not in use at the current moment
+// button styling event listener
 
-let button = document.querySelectorAll('.button');
+calcButton.forEach((div) => {
+    div.addEventListener('mousedown', () => {
+        div.classList.add("clicked");
+    })
+    div.addEventListener('mouseup', () => {
+        div.classList.remove("clicked");
+    })
+})
 
 // event listener that populates displayValue with user inputted numbers
 
 plusMinus.addEventListener('click', () => {
     
     //if it's x, swap sign of x variable
-    if(y === 0 && previousDisplay.textContent === "") {
+    if(y === 0) {
         x = (x-(x*2));
         displayValue = x;
         display.innerText = displayValue;
