@@ -299,6 +299,9 @@ backspace.addEventListener('click', () => {
     if(slice === ".") {
         isDecimalX = false;
     }
+    if(displayValue === "") {
+        displayValue = "0";
+    }
     display.innerText = displayValue;
     x = parseInt(displayValue);
     }
@@ -313,6 +316,9 @@ backspace.addEventListener('click', () => {
     displayValue = displayValue.slice(0, displayLength-1);
     if(slice === ".") {
         isDecimalY = false;
+    }
+    if(displayValue === "") {
+        displayValue = "0";
     }
     display.innerText = displayValue;
     y = parseInt(displayValue);
