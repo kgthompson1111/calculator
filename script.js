@@ -61,26 +61,6 @@ calcButton.forEach((div) => {
     })
 })
 
-// event listener that populates displayValue with user inputted numbers
-
-plusMinus.addEventListener('click', () => {
-    
-    //if it's x, swap sign of x variable
-    if(y === 0) {
-        x = (x-(x*2));
-        displayValue = x;
-        display.innerText = displayValue;
-    }
-
-    //if it's y, swap sign of y variable
-    if(y != 0 && previousDisplay.textContent != "") {
-        y = (y-(y*2));
-        displayValue = y;
-        display.innerText = displayValue;
-    }
-
-});
-
 numberButton.forEach((div) => {
     div.addEventListener('click', () => {
 
@@ -208,6 +188,11 @@ operatorButton.forEach((div) => {
             
             // check for divide by zero error first - reset and return if found.
             if(previousOperator === "/" && y === 0) {
+                if(x === 0) {
+                    operator = "";
+                    previousDisplay.textContent = operator;
+                    return;
+                }
                 displayValue = "ERR0R!";
                 display.innerText = displayValue;
                 operator = "";
@@ -269,6 +254,7 @@ operatorButton.forEach((div) => {
         //update previous display with operator
         previousDisplay.innerText = event.target.innerText;
         operator = previousDisplay.innerText;
+        previousDisplay.innerText = displayValue + " " + event.target.innerText;
         // reset the display value once an operator is hit
         displayValue = "";
         //set operated to true, initializes chained math
