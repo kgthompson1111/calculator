@@ -22,12 +22,13 @@ h1 {
 #calcContainer {
     display: flex;
     flex-direction: column;
-    background: purple;
+    background: rgb(24, 24, 24);
     margin-top: 20px;
     width: 16em;;
     min-height: 75%;
     border: 5px solid black;
     box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.411);
+    border-radius: 18px;
 }
 
 #previousDisplay {
@@ -39,6 +40,7 @@ h1 {
     padding-left: 20px;
     display: flex;
     align-items: center;
+    border-radius: 15px 15px 0px 0px;
 }
 
 #display {
@@ -83,10 +85,11 @@ h1 {
     justify-content: center;
     align-items: center;
     border: solid 2px black;
+    margin: 2px;
 }
 
 .numberButton, #equals, #AC {
-    width: 33%;
+    width: 30%;
     flex-grow: 1;
     font-size: 48px;
 }
@@ -97,6 +100,7 @@ h1 {
 
 #AC {
     background-color: red;
+    border-radius: 0px 0px 0px 15px;
 }
 
 #AC:hover, #equals:hover, .button:hover {
@@ -113,4 +117,8 @@ h1 {
 
 #backspace {
     background-color: red;
+}
+
+.decimal {
+    border-radius: 0px 0px 15px 0px;
 }

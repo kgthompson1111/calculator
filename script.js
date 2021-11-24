@@ -1,4 +1,5 @@
 //initialize x and y variables
+let isComputed = false;
 let x = 0;
 let y = 0;
 let isY = false;
@@ -14,6 +15,7 @@ display.innerText = displayValue;
 
 const numberButton = document.querySelectorAll('.numberButton');
 const operatorButton = document.querySelectorAll('.operatorButton');
+const calcButton = document.querySelectorAll('.button');
 
 // operator variable to tell calculator which operator is performing;
 
@@ -48,6 +50,10 @@ function divide(x, y) {
     return (x / y);
 }
 
+// button const - not in use at the current moment
+
+let button = document.querySelectorAll('.button');
+
 // event listener that populates displayValue with user inputted numbers
 
 plusMinus.addEventListener('click', () => {
@@ -70,6 +76,21 @@ plusMinus.addEventListener('click', () => {
 
 numberButton.forEach((div) => {
     div.addEventListener('click', () => {
+
+        //if equals button was pressed last, clear everything.
+        if(isComputed === true) {
+            //reset values after a press of the equals button
+            x = 0;
+            isY = false;
+            y = 0;
+            isDecimalX = false;
+            isDecimalY = false;
+            displayValue = "";
+            operated = false;
+            //reset previous display
+            previousDisplay.innerText = "";
+            isComputed = false;
+        }
 
         // check for a leading 0 and get rid of it
         if(displayValue === "0") {
@@ -179,7 +200,6 @@ operatorButton.forEach((div) => {
         if(operated === true) {
             
             // check for divide by zero error first - reset and return if found.
-            
             if(previousOperator === "/" && y === 0) {
                 displayValue = "ERR0R!";
                 display.innerText = displayValue;
@@ -369,14 +389,6 @@ backspace.addEventListener('click', () => {
 
         display.innerText = displayValue;
 
-        //reset values after a press of the equals button
-        x = 0;
-        isY = false;
-        y = 0;
-        isDecimalX = false;
-        isDecimalY = false;
-        displayValue = "";
-        operated = false;
         //reset previous display
         previousDisplay.innerText = "";
     });
