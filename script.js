@@ -349,8 +349,17 @@ backspace.addEventListener('click', () => {
         //throws an error if dividing by 0
         if(operator === "/" && y === 0) {
             displayValue = "ERR0R!";
+            display.innerText = displayValue;
             operator = "";
             displayValue = "";
+            x = 0;
+            isY = false;
+            y = 0;
+            isDecimalX = false;
+            isDecimalY = false;
+            displayValue = "";
+            operated = false;
+            previousDisplay.innerText = "";
             return;
         }
 
